@@ -277,20 +277,19 @@ client.on('message', msg => {
     p = msg.channel.id;
     msg.channel.send('Protocol redirect set!')
   }
+
+
+
+
+// Personal commands
+
+
+
   // Sets redirect for bot to talk
   if(msg.content.slice(0,7) === '..sbotr'){
     msg.delete();
     bot = msg.channel.id;
   }
-
-
-
-
-// Off-limit commands
-
-
-
-
   // Never, let the Dad jokes flow
   if(msg.content.slice(-72,-1) + msg.content.slice(-1) === 'Your message has been deleted for the following reasons: How. Dare. You.'){
     msg.delete();
