@@ -274,11 +274,6 @@ client.on('message', msg => {
     p = msg.channel.id;
     msg.channel.send('Protocol redirect set!')
   }
-  // Sets redirect for bot to talk
-  if(msg.content.slice(0,7) === '..sbotr'){
-    msg.delete();
-    bot = msg.channel.id;
-  }
 
 
 
