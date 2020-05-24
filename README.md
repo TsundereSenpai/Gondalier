@@ -1,4 +1,4 @@
-#Gondalier
+# Gondalier
 
 Gondalier is a Discord bot meant to handle a Discord parliament 
 
