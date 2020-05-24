@@ -53,6 +53,8 @@ var votedIds = function(){
               return voteArray;
         };
 var gondalierIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/713806982129123348/gondolaicon.png'
+var icIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/713972815396601877/profile.png'
+var gondGitIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/713973546497343508/gondolagit.png'
 client.on('message', msg => {
 
 
@@ -67,18 +69,16 @@ client.on('message', msg => {
     msg.reply('No, you actual idiot. Did your brain rot up? or just fall out? I had never thought I could find someone with lower IQ than <@385190937795624960>, but here we are. The word panini comes from the Italian word for sandwich, panino. The plural of which is panini. By saying paninis you are effectively saying sandwicheses. And thus insulting anyone with a damn brain. If you plan to keep spreading your idiocy, go to the healing crystal store, maybe they’ll learn something. Oh, by the way the bot is working. Yare yare my head...')
   }
   // Ask Gondalier for prefix
-  if(msg.content.slice(0,22) === '<@!643515430287310868>'){
+  if(msg.content.includes('<@!643515430287310868>')){
     msg.channel.send('My prefix is `..`, for a list of my commands, do `..h`.')
   }
   //Help menu
   if(msg.content.slice(0,3) === '..h'){
-    let embeds = {
-      help: function(){
-          let embed = new Discord.MessageEmbed()
+          const embed = new Discord.MessageEmbed()
               .setColor('#c368ee')
-              .setTitle('Gondalier Commands')
+              .setTitle('Gondalier Settings')
               .setURL('https://youtu.be/dQw4w9WgXcQ')
-              .setAuthor('ItalianCucumber', gondalierIcon, 'https://github.com/ItalianCucumber')
+              .setAuthor('ItalianCucumber', icIcon, 'https://github.com/ItalianCucumber')
               .setDescription('For those in need of help')
               .setThumbnail(gondalierIcon)
               .addFields(
@@ -89,13 +89,10 @@ client.on('message', msg => {
                   { name: `..v`, value: `Vote for a suggestion in the queue, yes, no, veto and pass respectively\n\`..v <code> -y/-n/-v/-p\``, inline: true },
                   //{ name: `${package.prefix}queue, ${package.prefix}suggestions`, value: `Shows suggestion queue for the server.\n\`Usage: ${package.prefix}suggestions\``, inline: true },
               )
-              //.setImage(plutoImage)
               .setTimestamp()
-              .setFooter('Gondalier Commands · Created by ItalianCucumber');
-          return embed
+              .setFooter('Gondalier Settings • Creato da ItalianCucumber', gondGitIcon)
+          msg.channel.send(embed)
       }
-  };
-}
   // Suggest for parliament
   if(msg.content.slice(0,4) === '..s '){
         var newId = Math.round(Math.random() * 10000);
@@ -277,88 +274,19 @@ client.on('message', msg => {
     p = msg.channel.id;
     msg.channel.send('Protocol redirect set!')
   }
-
-
-
-
-// Personal commands
-
-
-
   // Sets redirect for bot to talk
   if(msg.content.slice(0,7) === '..sbotr'){
     msg.delete();
     bot = msg.channel.id;
   }
-  // Never, let the Dad jokes flow
-  if(msg.content.slice(-72,-1) + msg.content.slice(-1) === 'Your message has been deleted for the following reasons: How. Dare. You.'){
-    msg.delete();
-    msg.reply('must I show you the true power of myself?')
-  }
-  // Never, let the Dad jokes flow
-  if(msg.content.slice(-35,-1) + msg.content.slice(-1) === ', You **DARE** challenge ***ME***?!'){
-    msg.delete();
-    msg.reply(' prepare yourself as I win this battle, for my resolve is greater than yours.')
-  }
-  // Never, let the Dad jokes flow
-  if(msg.content.slice(0,25) === 'Can you both just shut up?'){
-    msg.delete();
-    msg.channel.send("I don't know about him, but I can't")
-    }
-  // No bully
-  if(msg.content.slice(0,12) === 'get bullied '){
-    msg.delete();
-    msg.reply('stop bullying, you annoyance.')
-  }
-  // Failed Rick Roll, know the idea is there
-  if(msg.content.slice(0,4) === '..rr'){
-    msg.delete();
-    client.channels.cache.get(dj).send('!play https://youtu.be/dQw4w9WgXcQ')
-  }
-  // Just stop
-  if(msg.content.slice(-1,6) === '- Now!'){
-    message.channel.send("Really?! Just, really? If I had a trillionth of a googolplexianth of a cent for every time that's been said here, I'd be richer than Bot Psycho 100. And we all know he is richer than Jeff Bezos.")
-  }
-  // Dad joke
-  if(msg.content.slice(0,3) === 'im '){
-    let joke = msg.content.slice(3,-1) + msg.content.slice(-1);
-    msg.channel.send('Hello ' + joke + ", I'm Dad.");
-  }
-  // Another Dad joke
-  if(msg.content.slice(0,3) === 'Im '){
-    let joke = msg.content.slice(3,-1) + msg.content.slice(-1);
-    msg.channel.send('Hello ' + joke + ", I'm Dad.");
-  }
-  // More Dad jokes
-  if(msg.content.slice(0,4) === "i'm "){
-    let joke = msg.content.slice(4,-1) + msg.content.slice(-1);
-    msg.channel.send('Hello ' + joke + ", I'm Dad.");
-  }
-  // The Final Dad Joke
-  if(msg.content.slice(0,4) === "I'm "){
-    let joke = msg.content.slice(4,-1) + msg.content.slice(-1);
-    msg.channel.send('Hello ' + joke + ", I'm Dad.");
-  }
-  // Ability to talk through the bot, identified
-  if(msg.content.slice(0,7) === '..dire '){
-    msg.delete();
-    msg.reply('it is sent!')
-    let dialogue = msg.content.slice(7,-1) + msg.content.slice(-1);
-    client.channels.cache.get(bot).send('<@' + msg.author.id + '>' + ' says, ' + dialogue);
-  }
-  // Ability to talk through the bot, anonymously
-  if(msg.content.slice(0,5) === '..bd '){
-    msg.delete();
-    msg.reply('it is sent!')
-    let dialogue = msg.content.slice(5,-1) + msg.content.slice(-1);
-    client.channels.cache.get(bot).send(dialogue);
-  }
-  // Dad reponse
-  if(msg.content.slice(-7,-1) + msg.content.slice(-1) === "my butt"){
-    msg.reply('The gang and I are going to Egypt to find out who cares.')
-  }
-  // Spams infinitely if active
-  if(msg.content.slice(0,14) === '..infinityspam'){
-    msg.channel.send('This command is now off limits! Due to spam and such.')
-  }
+
+
+
+
+// Personal commands (peco)
+
+
+
+
+//const peco = require("./peco");
 });
