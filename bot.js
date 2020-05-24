@@ -214,12 +214,6 @@ client.on('message', msg => {
     g = msg.channel.id;
     msg.channel.send('General redirect set!')
   }
-  // Sets redirect for dj
-  if(msg.content.slice(0,5) === '..sdr'){
-    msg.delete();
-    dj = msg.channel.id;
-    msg.channel.send('DJ redirect set!')
-  }
   // Sets redirect for bot-testing
   if(msg.content.slice(0,5) === '..sbr'){
     msg.delete();
