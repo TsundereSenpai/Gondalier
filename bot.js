@@ -53,7 +53,7 @@ var votedIds = function(){
               return voteArray;
         };
 var gondalierIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/713806982129123348/gondolaicon.png'
-var icIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/713972815396601877/profile.png'
+var icIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/714423694998634496/image0.jpg'
 var gondGitIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/713973546497343508/gondolagit.png'
 client.on('message', msg => {
 
