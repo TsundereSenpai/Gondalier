@@ -6,7 +6,7 @@ Gondalier is a Discord bot meant to handle a Discord parliament
 
 ** **
 
-# Dependencies
+## Dependencies
 
 • An auth.json file with your own token
 
@@ -14,6 +14,6 @@ Gondalier is a Discord bot meant to handle a Discord parliament
 
 ** **
 
-Thank you for supporting Gondalier
+#### Thank you for supporting Gondalier
 
 Creato da ItalianCucumber
