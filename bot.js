@@ -2,6 +2,8 @@ var Discord = require('discord.js');
 var client = new Discord.Client();
 var logger = require('winston');
 var auth = require('./auth.json');
+const fs = require('fs')
+const ffmpeg = require('ffmpeg-static');
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
@@ -11,27 +13,17 @@ logger.level = 'debug';
 // Initialize Discord Bot
 client.on('ready', ()=> {
 console.log('Successfully logged in.');
-client.user.setActivity("with your emotions", { type: 'PLAYING' });
+client.user.setActivity("the dolphins fly away", { type: 'WATCHING' });
 });
+var bot = botdire.bot;
 client.login(auth.token);
 
-  g = '691793782466674721';
-  dj = '697523799175987292';
-  bt = '697585748974764042';
-  pd = '696846999965663323';
-  d = '697457937240686705';
-  fa = '697458000889380885';
-  sl = '697458067285082142';
-  pj = '697458197660827728';
-  cra = '697459291719860224';
-  s = '697472683809701929';
-  p = '697485262221082744';
-  bot = '691793782466674721';
+  g = '<general_channel_id>';
+  d = '<declarative_channel_id>';
+  j = '<policial_channel_id>';
   t = 0;
   ty = 0;
   tn = 0;
-
-
 
 var casecode = {
   'test': Math.floor((Math.random() * 10000) + 0)
@@ -53,9 +45,15 @@ var votedIds = function(){
               return voteArray;
         };
 var gondalierIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/713806982129123348/gondolaicon.png'
-var icIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/714423694998634496/image0.jpg'
+var icIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/732865142718595092/newProfile.png'
 var gondGitIcon = 'https://cdn.discordapp.com/attachments/713792176894509076/713973546497343508/gondolagit.png'
+
 client.on('message', msg => {
+
+  let p = config.prefix;
+  let messageArray = msg.content.split(" ");
+  let c = messageArray[0];
+
 
 
 
@@ -64,29 +62,31 @@ client.on('message', msg => {
 
 
 
+
   // Test for bot
-  if(msg.content.slice(0,10) === '..paninis'){
-    msg.reply('No, you actual idiot. Did your brain rot up? or just fall out? I had never thought I could find someone with lower IQ than <@385190937795624960>, but here we are. The word panini comes from the Italian word for sandwich, panino. The plural of which is panini. By saying paninis you are effectively saying sandwicheses. And thus insulting anyone with a damn brain. If you plan to keep spreading your idiocy, go to the healing crystal store, maybe they’ll learn something. Oh, by the way the bot is working. Yare yare my head...')
+  if(c === `${p}ping`){
+    msg.reply('Complete and utter pong')
   }
   // Ask Gondalier for prefix
   if(msg.content.includes('<@!643515430287310868>')){
-    msg.channel.send('My prefix is `..`, for a list of my commands, do `..h`.')
+    msg.channel.send('My prefix is `' + `${p}` + '`, for a list of my commands, do `' + `${p}h` + '`.')
   }
   //Help menu
-  if(msg.content.slice(0,3) === '..h'){
+  if(c === `${p}h`){
           const embed = new Discord.MessageEmbed()
               .setColor('#c368ee')
               .setTitle('Gondalier Settings')
-              .setURL('https://youtu.be/dQw4w9WgXcQ')
+              .setURL('https://github.com/ItalianCucumber/Gondalier')
               .setAuthor('ItalianCucumber', icIcon, 'https://github.com/ItalianCucumber')
               .setDescription('For those in need of help')
               .setThumbnail(gondalierIcon)
               .addFields(
                   { name: '\u200B', value: '\u200B' },
-                  { name: `..s`, value: `Creates a new suggestion for the parliament\n\`..s <suggestion>\``, inline:true },
-                  { name: `..q`, value: `Shows the queue of suggestions\n\`..q\``, inline:true },
+                  { name: `${p}s`, value: `Creates a new suggestion for the parliament\n\`${p}s <suggestion>\``, inline:true },
+                  { name: `${p}q`, value: `Shows the queue of suggestions\n\`${p}q\``, inline:true },
                   { name: '\u200B', value: '\u200B' },
-                  { name: `..v`, value: `Vote for a suggestion in the queue, yes, no, veto and pass respectively\n\`..v <code> -y/-n/-v/-p\``, inline: true },
+                  { name: `${p}v`, value: `Vote for a suggestion in the queue, yes, no, veto and pass respectively\n\`${p}v <code> -y/-n/-v/-p\``, inline: true },
+                  { name: `${p}d`, value: `Rolls a random number from 1 to the inserted value\n\`${p}d<number>\``, inline: true },
                   //{ name: `${package.prefix}queue, ${package.prefix}suggestions`, value: `Shows suggestion queue for the server.\n\`Usage: ${package.prefix}suggestions\``, inline: true },
               )
               .setTimestamp()
@@ -94,7 +94,7 @@ client.on('message', msg => {
           msg.channel.send(embed)
       }
   // Suggest for parliament
-  if(msg.content.slice(0,4) === '..s '){
+  if(msg.content.slice(0,4) === `${p}s `){
         var newId = Math.round(Math.random() * 10000);
         while(usedIds().includes(newId)){
             newId = Math.round(Math.random() * 10000);
@@ -112,7 +112,7 @@ client.on('message', msg => {
         console.log(voteQueue[voteQueue.length - 1].id)
   }
   // Queue for suggestions
-  if(msg.content.slice(0,3) === '..q'){
+  if(c === `${p}q`){
     msg.channel.send('Showing queue of suggestions.')
     for(var i = 0; i < voteQueue.length; i++){
     msg.channel.send('(' + voteQueue[i].id + ') ' + voteQueue[i].suggestion);
@@ -121,12 +121,11 @@ client.on('message', msg => {
   // Voting for suggestions
   if(msg.content.slice(0,4) === '..v '&&(usedIds().includes(msg.content.slice(5,-4)) + msg.content.slice(-4))){
     msg.delete();
-    if(client.guilds.cache.get(msg.guild.id).members.cache.get(msg.author.id).roles.cache.find(role => role.name === 'Declasial')) {
+    if(client.guilds.cache.get(msg.guild.id).members.cache.get(msg.author.id).roles.cache.find(role => role.name === 'Declasion')) {
       if(msg.content.slice(-2,-1) + msg.content.slice(-1) === '-y' || msg.content.slice(-2,-1) + msg.content.slice(-1) === '-n' || msg.content.slice(-2,-1) + msg.content.slice(-1) === '-v' || msg.content.slice(-2,-1) + msg.content.slice(-1) === '-p'){
       if(msg.content.slice(-2,-1) + msg.content.slice(-1) === '-y'){
       var newId = msg.author.id
       console.log(newId)
-      console.log(votedIds)
       if(votedIds().includes(newId)){
            t = t - 1
            ty = ty - 1
@@ -138,9 +137,16 @@ client.on('message', msg => {
       if(votedIds().includes(newId)){
         msg.channel.send('You have already voted for this suggestion.')
       } else {
+        voteList.push(
+            {
+                id: newId,
+            }
+        );
         if(t == 5){
           if(ty > tn){
             msg.channel.send('Suggestion ' + voteQueue[voteQueue.length - 1].id + ' has been passed in this party of law.')
+            client.channels.cache.get(l).send('Suggestion' + voteQueue[voteQueue.length - 1].id + 'has passed the first stage of submitting a suggestion and is waiting for approval from the supreme leader:');
+            client.channels.cache.get(l).send(voteQueue[voteQueue.length - 1].suggestion);
             t = 0;
             tn = 0;
             ty = 0;
@@ -169,9 +175,16 @@ client.on('message', msg => {
       if(votedIds().includes(newId)){
         msg.channel.send('You have already voted for this suggestion.')
       } else {
+        voteList.push(
+            {
+                id: newId,
+            }
+        );
         if(t == 5){
           if(ty > tn){
             msg.channel.send('Suggestion ' + voteQueue[voteQueue.length - 1].id + ' has been passed in this party of law.')
+            client.channels.cache.get(l).send('Suggestion' + voteQueue[voteQueue.length - 1].id + 'has passed the first stage of submitting a suggestion and is waiting for approval from the supreme leader:');
+            client.channels.cache.get(l).send(voteQueue[voteQueue.length - 1].suggestion);
             t = 0;
             tn = 0;
             ty = 0;
@@ -186,18 +199,33 @@ client.on('message', msg => {
         }
         }
       }
-      if(msg.content.slice(-2,-1) + msg.content.slice(-1) === '-v'){
-      msg.channel.send('Suggestion ' + voteQueue[voteQueue.length - 1].id + ' has been vetoed.')
-      }
-      if(msg.content.slice(-2,-1) + msg.content.slice(-1) === '-p'){
-      msg.channel.send('Suggestion ' + voteQueue[voteQueue.length - 1].id + ' has been passed in this party of law.')
-      }
     } else {
       msg.channel.send('That is not a valid voting option.')
     }
   } else {
-    msg.channel.send('You are not a member of the Declasial party.')
+    msg.channel.send('You are not a member of the Declaration party.')
   }
+  if(msg.content.slice(-2,-1) + msg.content.slice(-1) === '-v'){
+    if(client.guilds.cache.get(msg.guild.id).members.cache.get(msg.author.id).roles.cache.find(role => role.name === 'Supreme Leader' || role.name === 'Policial')) {
+      msg.channel.send('Suggestion ' + voteQueue[voteQueue.length - 1].id + ' has been vetoed.')
+    } else {
+      msg.channel.send('You are not within a party able to veto a law.')
+    }
+  }
+  if(msg.content.slice(-2,-1) + msg.content.slice(-1) === '-p'){
+    msg.channel.send('Suggestion ' + voteQueue[voteQueue.length - 1].id + ' has been passed in this party of law.')
+    client.channels.cache.get(l).send('Suggestion ' + voteQueue[voteQueue.length - 1].id + ' has passed the first stage of submitting a suggestion and is waiting for approval from the supreme leader:');
+    client.channels.cache.get(l).send(voteQueue[voteQueue.length - 1].suggestion);
+  }
+}
+// Dice rolling
+if(msg.content.slice(0,3) === `${p}d`){
+  let number = msg.content.slice(3,-1) + msg.content.slice(-1);
+  var roll = Math.round(Math.random() * number);
+  while(roll === 0){
+    var roll = Math.round(Math.random() * number);
+  }
+  msg.channel.send(roll)
 }
 
 
@@ -209,64 +237,22 @@ client.on('message', msg => {
 
 
   // Sets redirect for general
-  if(msg.content.slice(0,5) === '..sgr'){
+  if(c === `${p}sgr`){
     msg.delete();
     g = msg.channel.id;
     msg.channel.send('General redirect set!')
   }
-  // Sets redirect for bot-testing
-  if(msg.content.slice(0,5) === '..sbr'){
+  // Sets redirect for declaration
+  if(c === `${p}sdr`){
     msg.delete();
-    bt = msg.channel.id;
-    msg.channel.send('Bot testing redirect set!')
+    j = msg.channel.id;
+    msg.channel.send('Declaration redirect set!')
   }
-  // Sets redirect for parliamentary decisions
-  if(msg.content.slice(0,6) === '..spdr'){
+  // Sets redirect for policial
+  if(c === `${p}sjr`){
     msg.delete();
-    pd = msg.channel.id;
-    msg.channel.send('Parliamentary decisions redirect set!')
-  }
-  // Sets redirect for voting
-  if(msg.content.slice(0,5) === '..svr'){
-    msg.delete();
-    d = msg.channel.id;
-    msg.channel.send('Voting redirect set!')
-  }
-  // Sets redirect for foreign-affairs
-  if(msg.content.slice(0,5) === '..sfr'){
-    msg.delete();
-    fa = msg.channel.id;
-    msg.channel.send('Foreign-affairs redirect set!')
-  }
-  // Sets redirect for supreme leader
-  if(msg.content.slice(0,5) === '..slr'){
-    msg.delete();
-    sl = msg.channel.id;
-    msg.channel.send('Supreme Leader redirect set!')
-  }
-  // Sets redirect for judging
-  if(msg.content.slice(0,5) === '..sjr'){
-    msg.delete();
-    pj = msg.channel.id;
-    msg.channel.send('Judge redirect set!')
-  }
-  // Sets redirect for CRA
-  if(msg.content.slice(0,5) === '..scr'){
-    msg.delete();
-    cra = msg.channel.id;
-    msg.channel.send('CRA redirect set!')
-  }
-  // Sets redirect for suggestions
-  if(msg.content.slice(0,5) === '..ssr'){
-    msg.delete();
-    s = msg.channel.id;
-    msg.channel.send('Suggestions redirect set!')
-  }
-  // Sets redirect for protocol
-  if(msg.content.slice(0,5) === '..spr'){
-    msg.delete();
-    p = msg.channel.id;
-    msg.channel.send('Protocol redirect set!')
+    j = msg.channel.id;
+    msg.channel.send('Policial redirect set!')
   }
 
 
@@ -276,6 +262,10 @@ client.on('message', msg => {
 
 
 
+  // Put your personal commands here
 
-//const peco = require("./peco");
+  //Example of a command
+  if(c === `${p}examplecommand`){
+    msg.channel.send('Example response')
+  }
 });
