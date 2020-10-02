@@ -1,12 +1,12 @@
 # Gondalier
 
-*Gondalier is a Discord bot meant to handle a Discord parliament*
+Gondalier is a Discord bot meant to handle a Discord parliament 
 
 **This isn't a tutorial.**
 
 ** **
 
-Dependencies:
+# Dependencies
 
 • An auth.json file with your own token
 
