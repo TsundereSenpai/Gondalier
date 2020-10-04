@@ -27,7 +27,7 @@ client.login(auth.token);
 
 var casecode = {
   'test': Math.floor((Math.random() * 10000) + 0)
-}
+};
 var voteQueue = [];
 var voteList = [];
 var usedIds = function(){
@@ -66,11 +66,11 @@ client.on('message', msg => {
   // Test for bot
   if(c === `${p}ping`){
     msg.reply('Complete and utter pong')
-  }
+  };
   // Ask Gondalier for prefix
-  if(msg.content.includes('<@!643515430287310868>')){
-    msg.channel.send('My prefix is `' + `${p}` + '`, for a list of my commands, do `' + `${p}h` + '`.')
-  }
+  if(msg.content.includes('<@!643515430287310868>') || msg.content.includes('<@643515430287310868>')){
+    msg.channel.send('My prefix is `' + `${p}` + '`, for a list of my commands, do `' + `${p}h` + '`.');
+  };
   //Help menu
   if(c === `${p}h`){
           const embed = new Discord.MessageEmbed()
@@ -92,7 +92,7 @@ client.on('message', msg => {
               .setTimestamp()
               .setFooter('Gondalier Settings • Creato da ItalianCucumber', gondGitIcon)
           msg.channel.send(embed)
-      }
+      };
   // Suggest for parliament
   if(msg.content.slice(0,4) === `${p}s `){
         var newId = Math.round(Math.random() * 10000);
@@ -110,14 +110,14 @@ client.on('message', msg => {
         client.channels.cache.get(d).send('<@' + msg.author.id + '>' + ' suggested: ' + suggestion + ' (' + voteQueue[voteQueue.length - 1].id + ')');
         console.log(voteQueue[voteQueue.length - 1].suggestion)
         console.log(voteQueue[voteQueue.length - 1].id)
-  }
+  };
   // Queue for suggestions
   if(c === `${p}q`){
     msg.channel.send('Showing queue of suggestions.')
     for(var i = 0; i < voteQueue.length; i++){
     msg.channel.send('(' + voteQueue[i].id + ') ' + voteQueue[i].suggestion);
   }
-}
+};
   // Voting for suggestions
   if(msg.content.slice(0,4) === '..v '&&(usedIds().includes(msg.content.slice(5,-4)) + msg.content.slice(-4))){
     msg.delete();
@@ -211,13 +211,13 @@ client.on('message', msg => {
     } else {
       msg.channel.send('You are not within a party able to veto a law.')
     }
-  }
+  };
   if(msg.content.slice(-2,-1) + msg.content.slice(-1) === '-p'){
     msg.channel.send('Suggestion ' + voteQueue[voteQueue.length - 1].id + ' has been passed in this party of law.')
     client.channels.cache.get(l).send('Suggestion ' + voteQueue[voteQueue.length - 1].id + ' has passed the first stage of submitting a suggestion and is waiting for approval from the supreme leader:');
     client.channels.cache.get(l).send(voteQueue[voteQueue.length - 1].suggestion);
   }
-}
+};
 // Dice rolling
 if(msg.content.slice(0,3) === `${p}d`){
   let number = msg.content.slice(3,-1) + msg.content.slice(-1);
@@ -226,7 +226,7 @@ if(msg.content.slice(0,3) === `${p}d`){
     var roll = Math.round(Math.random() * number);
   }
   msg.channel.send(roll)
-}
+};
 
 
 
@@ -241,19 +241,19 @@ if(msg.content.slice(0,3) === `${p}d`){
     msg.delete();
     g = msg.channel.id;
     msg.channel.send('General redirect set!')
-  }
+  };
   // Sets redirect for declaration
   if(c === `${p}sdr`){
     msg.delete();
     j = msg.channel.id;
     msg.channel.send('Declaration redirect set!')
-  }
+  };
   // Sets redirect for policial
   if(c === `${p}sjr`){
     msg.delete();
     j = msg.channel.id;
     msg.channel.send('Policial redirect set!')
-  }
+  };
 
 
 
